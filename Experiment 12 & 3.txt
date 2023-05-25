@@ -1,0 +1,72 @@
+import pandas as pd
+import numpy as np
+#importing the dataset
+df = pd.read_csv("records.csv")
+df.head()
+print(df)
+
+#3. Filling the Missing Values – Imputation
+updated_df = df
+updated_df['Salary']=updated_df['Salary'].fillna(updated_df['Salary'].mean())
+print(updated_df)
+#4. Imputation with an additional column
+updated_df = df
+updated_df['Salaryismissing'] = updated_df['Salary'].isnull()
+print(updated_df)
+#5. Filling with a Regression Model
+testdf = df[df['Salary'].isnull()==True]
+traindf = df[df['Salary'].isnull()==False]
+traindf.drop("Salary",axis=1,inplace=True)
+testdf.drop("Salary",axis=1,inplace=True)
+print(traindf)
+
+#Experiment 3
+pip install NLTK
+
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+stop_words = stopwords.words('english')
+print(stop_words)
+
+punctuations = '''!()-{}[];:"'\,<>./?@#$%^&*_~`'''
+my_str = "Hello!!!, he said ...and went."
+no_punct = ""
+for char in my_str:
+ if(char not in punctuations):
+    no_punct = no_punct + char
+print(no_punct)
+
+import re
+s = "Hello!!!, he said ...and went."
+s = re.sub(r'[^\w\s]','',s)
+# not of word and space character
+print(s)
+
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import sent_tokenize, word_tokenize
+example_text = "Hello Mr. Pravin, how are you doing today? The weather in lonavala is rainy. The sky is full of cloud."
+print(sent_tokenize(example_text))
+print(word_tokenize(example_text))
+
+import nltk
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+stemmer = PorterStemmer()
+input_str = "There are several types of stemming algorithms."
+input_str = nltk.word_tokenize(input_str)
+print (input_str)
+for word in input_str:
+ print(stemmer.stem(word))
+
+import nltk
+nltk.download('wordnet')
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+lemmatizer = WordNetLemmatizer()
+input_str = "There are several cities with mice."
+input_str = nltk.word_tokenize(input_str)
+print (input_str)
+for word in input_str:
+ print(lemmatizer.lemmatize(word))
